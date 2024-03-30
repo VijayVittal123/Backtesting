@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backtesting Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="results-container">
+    <h1>Backtesting Results</h1>
+    <p>Initial Cash: ${{ initial_cash }}</p>
+    <p>Final Portfolio Value: ${{ final_equity }}</p>
+    <p>Number of trades: {{ number_of_trades }} trades </p>
+</div>
+
+</body>
+</html>

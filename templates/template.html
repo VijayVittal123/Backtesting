@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backtesting Platform</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="full-page-container">
+      <header>
+        <h1>Welcome to Our Backtesting Platform</h1>
+        <p>
+          Select a strategy and a company to backtest its performance
+          historically.
+        </p>
+      </header>
+      <form id="strategyForm" method="post">
+        <label for="strategySelect">Select Your Trading Strategy</label>
+        <select id="strategySelect" name="strategy">
+          <option value="threshold_volume">Threshold Volume Strategy</option>
+          <option value="volume">Volume Strategy</option>
+        </select>
+
+        <label for="companySelect">Select a Company</label>
+        <select id="companySelect" name="company">
+          {% for company in companies %}
+          <option value="{{ company }}">{{ company }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="initialCash">Initial Cash:</label>
+        <input
+          type="number"
+          id="initialCash"
+          name="initial_cash"
+          value="10000"
+          min="0"
+          step="100"
+        />
+
+        <!-- Add these inside your <form> tag -->
+
+<label for="startDate">Start Date:</label>
+<input type="date" id="startDate" name="start_date" required>
+
+<label for="endDate">End Date:</label>
+<input type="date" id="endDate" name="end_date" required>
+
+
+        <button type="submit">Start Backtesting</button>
+      </form>
+    </div>
+  </body>
+</html>
