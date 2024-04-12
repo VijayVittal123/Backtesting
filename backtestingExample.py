@@ -4,6 +4,7 @@ import talib
 from backtesting.lib import crossover
 import yfinance as yf
 import pandas as pd
+import json
 
 
 
@@ -17,6 +18,75 @@ import pandas as pd
 # # # Calculate the 10-day moving average of volume and add it to the DataFrame
 # n1 = 10  # Number of days for moving average of volume
 # data['Volume_MA'] = data['Volume'].rolling(n1).mean()
+
+class MovingAverageCrossover(Strategy):
+    n1 = 50  # Fast moving average window
+    n2 = 200  # Slow moving average window
+    
+    def init(self):
+        # Use the self.I() interface to wrap pd.Series.ewm and directly get the mean, which does not produce '_Array' issues
+        self.ma1 = self.I(lambda x: pd.Series(x).ewm(span=self.n1, adjust=False).mean(), self.data.Close)
+        self.ma2 = self.I(lambda x: pd.Series(x).ewm(span=self.n2, adjust=False).mean(), self.data.Close)
+    
+    def next(self):
+        if crossover(self.ma1, self.ma2):
+            self.buy()
+        elif crossover(self.ma2, self.ma1):
+            self.sell()
+
+import pandas as pd
+
+
+def SMA(values, n):
+    """
+    Return simple moving average of `values`, at
+    each step taking into account `n` previous values.
+    """
+    return pd.Series(values).rolling(n).mean()
+
+class SmaCross(Strategy):
+    # Define the two MA lags as *class variables*
+    # for later optimization
+    n1 = 10
+    n2 = 20
+    
+    def init(self):
+        # Precompute the two moving averages
+        self.sma1 = self.I(SMA, self.data.Close, self.n1)
+        self.sma2 = self.I(SMA, self.data.Close, self.n2)
+    
+    def next(self):
+        # If sma1 crosses above sma2, close any existing
+        # short trades, and buy the asset
+        if crossover(self.sma1, self.sma2):
+            self.position.close()
+            self.buy()
+
+        # Else, if sma1 crosses below sma2, close any existing
+        # long trades, and sell the asset
+        elif crossover(self.sma2, self.sma1):
+            self.position.close()
+            self.sell()
+
+class MomentumStrategy(Strategy):
+
+    def init(self):
+        self.buy_signal_triggered = False
+        self.buy_signal_price = [1000000] 
+
+    def next(self):
+        pe_ratio = self.data['Open']  # Use the 'Open' column as the P/E ratio
+     
+
+        # Check if the P/E ratio is trending upwards or downwards
+        if self.buy_signal_triggered and pe_ratio[-1] > self.buy_signal_price[-1]:
+            self.position.close()
+            self.buy_signal_triggered = False
+        elif not self.buy_signal_triggered and pe_ratio[-1] < self.buy_signal_price[-1]:
+            self.buy_signal_triggered = True
+            self.buy_signal_price = pe_ratio
+            self.buy()
+
 
 class ThresholdVolumeStrategy(Strategy):
     def init(self):
