@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    background-color: #f3f9ff;
+    font-family: "Poppins";
 }
 
 .full-page-container {
@@ -12,12 +15,23 @@ html, body {
     align-items: center;
     text-align: center;
     min-height: 100%;
-    background-color: #f0f0f0;
-    padding: 20px;
+    color: #003260;
 }
 
 header {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+header .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+header img {
+    width: 100px;
+    margin-right: 10px;
 }
 
 header h1 {
@@ -32,9 +46,9 @@ header p {
 
 form {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px 25px 25px 25px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
 }
@@ -52,6 +66,19 @@ select {
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #fff;
+    font-family: "Poppins" !important;
+    font-size: 90%;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-family: "Poppins" !important;
+    font-size: 90%;
 }
 
 button {
@@ -59,12 +86,44 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #003260;
     color: white;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-family: "Poppins" !important;
+    transition: .3s;
+    font-size: 100%;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #e8349c;
+}
+
+
+
+
+
+.results-container {
+    background-color: #fff;
+    padding: 15px 25px 25px 25px;
+    border-radius: 5px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+}
+
+.results-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.results-left {
+    text-align: left;
+    font-weight: 700;
+}
+
+.results-right {
+    text-align: right;
+    font-weight: 200;
 }

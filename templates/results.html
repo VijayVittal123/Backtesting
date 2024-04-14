@@ -8,12 +8,27 @@
 </head>
 <body>
 
-<div class="results-container">
-    <h1>Backtesting Results</h1>
-    <p>Initial Cash: ${{ initial_cash }}</p>
-    <p>Final Portfolio Value: ${{ final_equity }}</p>
-    <p>Number of trades: {{ number_of_trades }} trades </p>
-</div>
+    <div class="full-page-container">
+        <div class="results-container">
+            <header>
+                <h1>Results</h1>
+            </header>
+            <div class="results-content">
+                <div class="results-left">
+                    <h3>Initial Cash</h3>
+                    <h3>Final Portfolio Value</h3>
+                    <h3>Number of Trades</h3>
+                </div>
+                <div class="results-right">
+                    <h3>${{ initial_cash }}</h3>
+                    <h3>${{ final_equity }}</h3>
+                    <h3>{{ number_of_trades }} trades</h3>
+                </div>
+            </div>
+        
+            <button onclick="window.location.href = '/';">Go Back</button>
+        </div>
+    </div>
 
 </body>
 </html>
